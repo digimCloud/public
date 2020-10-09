@@ -15,7 +15,7 @@ def main():
     selected = docOrig.GetActiveObjects(c4d.GETACTIVEOBJECTFLAGS_CHILDREN)
     savePath = docOrig.GetDocumentPath()
     
-    if selected == None:
+    if not selected:
         print("Nebyl vybrán žádný objekt. Vyberte alespoň jeden objekt a zkuste to znovu.")
         return
 
@@ -40,7 +40,7 @@ def main():
     print("*******************")
     print("vyexportováno " + str(len(objNames)) + " souborů")
     print("nalezeno " + str(len(objDuplicateNames)) + " duplicitních názvů ")
-    
+        
 # Execute main()
 if __name__=='__main__':
     main()
