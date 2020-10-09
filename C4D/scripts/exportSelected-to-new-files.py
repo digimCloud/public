@@ -24,12 +24,16 @@ def main():
 
     docOrig = c4d.documents.GetActiveDocument()
     selected = docOrig.GetActiveObjects(c4d.GETACTIVEOBJECTFLAGS_CHILDREN)
-    savePath = docOrig.GetDocumentPath()
+    origSavePath = docOrig.GetDocumentPath()
+    docName = docOrig.GetDocumentName()
+    docName,ext   = os.path.splitext(docName)
     
     if exportFolderName != "":
-        path_savePath = os.path.join(savePath, exportFolderName) 
+        path_savePath = os.path.join(origSavePath, exportFolderName) 
         if not os.path.exists(path_savePath):
             os.makedirs(path_savePath)
+    else:
+        path_savePath = origSavePath
 
     if not selected:
         print("Nebyl vybrán žádný objekt. Vyberte alespoň jeden objekt a zkuste to znovu.")
@@ -42,9 +46,10 @@ def main():
 
         fileBaseName = obj.GetName()
         if fileBaseName in objNames:
-            print("POZOR! Objekt s názvem " + fileBaseName + " již byl exportován.")
             objDuplicateNames.append(fileBaseName)
-        else:
+        elif (exportFolderName == "") and (fileBaseName == docName) :
+            print("POZOR: Export objektu " + fileBaseName + " neproveden! \nExportujete do složky zdrojového c4d souboru a objekt má stejný název jako tento zdrojový soubor.")
+        else:    
             objNames.append(fileBaseName)
             tempDoc = c4d.documents.IsolateObjects(docOrig, [obj])
             path_file =  os.path.join(path_savePath, fileBaseName + ".c4d")
@@ -55,7 +60,13 @@ def main():
     print("\nEXPORT JOB FINISHED")
     print("*******************")
     print("vyexportováno " + str(len(objNames)) + " souborů")
-    print("nalezeno " + str(len(objDuplicateNames)) + " duplicitních názvů ")
+    
+    dupLen = len(objDuplicateNames)
+    if dupLen > 0:
+        print("POZOR: Nalezeno " + str(dupLen) + " objektů s duplicitním názvem.\nTyto objekty nebyly vyexportovány! ")
+        for xname in objDuplicateNames:
+            print(xname)
+    
 
 
 
