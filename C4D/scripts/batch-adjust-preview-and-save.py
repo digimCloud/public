@@ -1,4 +1,4 @@
-# read all files with allowed extension from folder, center view and resaveit
+# export selected objects to new C4D files
 # Stanislav Szkandera, Digital Media
 # standa@digitalmedia.cz
 # www.cinema4d.cz
@@ -23,6 +23,8 @@ allowedExt = ['.c4d']
 
 
 
+
+
 def main():
     c4d.CallCommand(12305, 12305) # Show Console...
     c4d.CallCommand(13957); # Clear console
@@ -31,6 +33,7 @@ def main():
     if not path: return
 
     dirList=os.listdir(path)
+
 
     arr_files = []
     for fname in dirList:
@@ -50,15 +53,18 @@ def main():
             c4d.CallCommand(18194) # Geometry Only
             # END of block
             
+            
             c4d.EventAdd
-
-            flags_save = c4d.SAVEDOCUMENTFLAGS_DONTADDTORECENTLIST | c4d.SAVEDOCUMENTFLAGS_SAVECACHES
-            c4d.documents.SaveDocument(newDoc,fpath,flags_save,c4d.FORMAT_C4DEXPORT)
+            c4d.CallCommand(12098) # Save Project
+            c4d.CallCommand(12664) # Close Project
+        
+            #flags_save = c4d.SAVEDOCUMENTFLAGS_DONTADDTORECENTLIST | c4d.SAVEDOCUMENTFLAGS_SAVECACHES
+            #c4d.documents.SaveDocument(newDoc,fpath,flags_save,c4d.FORMAT_C4DEXPORT)
 
             arr_files.append(fname_name+fname_extension)
             print("Saving file " + str(fname))
 
-            c4d.documents.KillDocument(newDoc)
+            #c4d.documents.KillDocument(newDoc)
 
     lenFiles = len(arr_files)
     if lenFiles>0:
