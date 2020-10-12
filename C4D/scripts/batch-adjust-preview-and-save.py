@@ -23,8 +23,6 @@ allowedExt = ['.c4d']
 
 
 
-
-
 def main():
     c4d.CallCommand(12305, 12305) # Show Console...
     c4d.CallCommand(13957); # Clear console
@@ -33,7 +31,6 @@ def main():
     if not path: return
 
     dirList=os.listdir(path)
-
 
     arr_files = []
     for fname in dirList:
@@ -48,6 +45,7 @@ def main():
             c4d.CallCommand(100004766) # Select All
             c4d.CallCommand(12151) # Frame Selected Objects
             c4d.CallCommand(18194) # Geometry Only
+            c4d.EventAdd
 
             flags_save = c4d.SAVEDOCUMENTFLAGS_DONTADDTORECENTLIST | c4d.SAVEDOCUMENTFLAGS_SAVECACHES
             c4d.documents.SaveDocument(newDoc,fpath,flags_save,c4d.FORMAT_C4DEXPORT)
