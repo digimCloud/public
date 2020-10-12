@@ -1,4 +1,4 @@
-# export selected objects to new C4D files
+# read all files with allowed extension from folder, center view and resaveit
 # Stanislav Szkandera, Digital Media
 # standa@digitalmedia.cz
 # www.cinema4d.cz
@@ -48,7 +48,6 @@ def main():
             c4d.CallCommand(100004766) # Select All
             c4d.CallCommand(12151) # Frame Selected Objects
             c4d.CallCommand(18194) # Geometry Only
-
 
             flags_save = c4d.SAVEDOCUMENTFLAGS_DONTADDTORECENTLIST | c4d.SAVEDOCUMENTFLAGS_SAVECACHES
             c4d.documents.SaveDocument(newDoc,fpath,flags_save,c4d.FORMAT_C4DEXPORT)
