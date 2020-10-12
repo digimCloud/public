@@ -42,9 +42,14 @@ def main():
             flags_load = c4d.SCENEFILTER_OBJECTS | c4d.SCENEFILTER_MATERIALS | c4d.SCENEFILTER_SAVECACHES
             newDoc = c4d.documents.LoadDocument(fpath,flags_load)
 
+            # call internal Cinema 4D commands
+            # to display more C4D command calls, go to menu Extension -> Script log and start clicking on different commands in C4D menus
+            # copy/paste command call to the block below
             c4d.CallCommand(100004766) # Select All
             c4d.CallCommand(12151) # Frame Selected Objects
             c4d.CallCommand(18194) # Geometry Only
+            # END of block
+            
             c4d.EventAdd
 
             flags_save = c4d.SAVEDOCUMENTFLAGS_DONTADDTORECENTLIST | c4d.SAVEDOCUMENTFLAGS_SAVECACHES
