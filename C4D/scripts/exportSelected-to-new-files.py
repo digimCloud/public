@@ -64,7 +64,7 @@ def main():
             objDict[fileBaseName] = 0
             rename = False
 
-        if (exportFolderName == "") and (fileBaseName == docName):
+        if (exportFolderName == "") and (fileBaseName == docName) and (saveXrefDocAsSeparateFile):
             rename = True
 
         if rename:
@@ -85,13 +85,16 @@ def main():
 
 
     savePath = os.path.join(origSavePath, docName + ".c4d")
-    print(savePath)
+    #print(savePath)
     c4d.documents.SaveDocument(docOrig, savePath, c4d.SAVEDOCUMENTFLAGS_0, c4d.FORMAT_C4DEXPORT)
 
 
-    print("\nEXPORT PROVEDEN")
+    print("\nEXPORT JOB FINISHED")
     print("*******************************")
     print("vyexportováno souborů: " + str(len(selected)))
+
+
+
 
 
 
